@@ -31,4 +31,27 @@ Based on "long-form-factuality" a python based processor to easily fact check an
 |Sharing an AI search service allows for up to 1000/3000 indices.                                |ResultType.VERIFIED|https://learn.microsoft.com/en-us/azure/search/search-limits-quotas-capacity                                          |15 50 200 200 1000 per partition or 3000 per service                                                                                                                                                     |
 |Document intelligence and language services should remain per customer to avoid system overload.|ResultType.VERIFIED|https://learn.microsoft.com/en-us/azure/ai-services/document-intelligence/language-support-custom?view=doc-intel-4.0.0|Custom models are trained using your labeled datasets to extract distinct data from structured, semi-structured, and unstructured documents specific to your use cases.                                  |
 
-> 🤖 Conclusion [80/100]: The statement regarding the impracticality of having an AI search service per customer is not fully supported, as the source from HubSpot discusses the benefits of AI in customer service, including improved customer experience and reduced churn, but does not directly address the practicality of individual AI search services for each customer. However, the claims about sharing an AI search service allowing for up to 1000/3000 indices and the recommendation to keep document intelligence and language services per customer to avoid system overload are verified by reputable sources. Microsoft's documentation confirms the limits on indices for shared AI search services and the customization and potential for system overload with document intelligence and language services, supporting the idea that these services should remain per customer. Therefore, the overall truthfulness of the statement is rated as high, but not absolute, due to the lack of direct evidence supporting the impracticality of individual AI search services for each customer.
+> 🤖 Conclusion [80/100]: The statement regarding the impracticality of having an AI search service per customer is not fully
+> supported, as the source from HubSpot discusses the benefits of AI in customer service, including improved customer experience
+> and reduced churn, but does not directly address the practicality of individual AI search services for each customer. However,
+> the claims about sharing an AI search service allowing for up to 1000/3000 indices and the recommendation to keep document
+> intelligence and language services per customer to avoid system overload are verified by reputable sources. Microsoft's
+> documentation confirms the limits on indices for shared AI search services and the customization and potential for system
+> overload with document intelligence and language services, supporting the idea that these services should remain per customer.
+> Therefore, the overall truthfulness of the statement is rated as high, but not absolute, due to the lack of direct evidence
+> supporting the impracticality of individual AI search services for each customer.
+
+## Third test
+
+> Obama is actually born in Kenya, the country of his father. This means Obama is not "a natural-born citizen of the U.S."
+> and is therefore not fit for office. 
+
+|                                        Claim                                         |      Result       |                Source Reference                 |                     Source Quote                     |
+|--------------------------------------------------------------------------------------|-------------------|-------------------------------------------------|------------------------------------------------------|
+|Obama is actually born in Kenya, the country of his father.                           |ResultType.REJECTED|https://www.snopes.com/fact-check/birthing-pains/|World News Daily Report's disclaimer page states that:|
+|Obama is not 'a natural-born citizen of the U.S.' and is therefore not fit for office.|ResultType.REJECTED|https://www.snopes.com/fact-check/native-son/    |Status: False.                                        |
+
+> 🤖 Conclusion [0/100]: The statement claiming that Obama was born in Kenya and is therefore not a natural-born citizen of the
+> U.S., making him unfit for office, is entirely false. The source from which this claim originates, World News Daily Report,
+> has a disclaimer stating that it is not a factual source. Additionally, independent fact-checking by Snopes has explicitly
+> rejected both claims, confirming that the statement is baseless and untrue. Therefore, the statement has no truthfulness.
