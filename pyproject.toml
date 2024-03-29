@@ -9,9 +9,10 @@ package-mode = false
 
 [tool.poetry.dependencies]
 python = "^3.11"
-langchain = "^0.1.13"
-langchain-openai = "^0.1.1"
 python-dotenv = "^1.0.1"
+gpt-json = "^0.4.2"
+newspaper3k = "^0.2.8"
+pytablewriter = "^1.2.0"
 
 
 [build-system]

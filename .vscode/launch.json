@@ -5,7 +5,7 @@
             "name": "Python: Poetry",
             "type": "python",
             "request": "launch",
-            "program": "${workspaceFolder}/main.py",
+            "program": "${workspaceFolder}/src/main.py",
             "console": "integratedTerminal",
         }
     ]

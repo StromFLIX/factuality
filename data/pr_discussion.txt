@@ -1,0 +1,3 @@
+I think you are right having ai search service per customer makes no sense.
+We should share it as we then have the limit of up to 1000/3000 indices if needed.
+For the other two (document intelligence and language ) i think they should stay as per customer so we do not have issues when one customer overloads the system for other customers.
