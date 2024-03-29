@@ -1,10 +1,8 @@
 # Welcome to Factuality: The Misinformation Buster!
 
-<p align="left">
-  <img src="./assets/factuality.png" width="300" />
-</p>
+<img src="./assets/factuality.png" width="300" />
 
-👋 Hey there, curious minds! It's me, your digital sidekick on a quest to squash misinformation, one fact at a time. Welcome to **Factuality**, the coolest tool in the cyber universe where we turn detective mode on and dive deep into the sea of information to bring you the truth, the whole truth, and nothing but the truth!
+👋 Hey there, curious minds! It's me, your digital sidekick **Factuality** on a quest to squash misinformation, one fact at a time. Welcome to the coolest tool in the cyber universe where we turn detective mode on and dive deep into the sea of information to bring you the truth, the whole truth, and nothing but the truth!
 
 
 > Based on [long-form-factuality](https://arxiv.org/abs/2403.18802) -> [github](https://github.com/google-deepmind/long-form-factuality)
