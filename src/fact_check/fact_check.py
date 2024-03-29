@@ -47,7 +47,7 @@ Respond with the following JSON schema:
 
 async def check_claim(claim : Claim, sources: list[SearchResults]) -> ClaimChecked:
     for source in sources:
-        for chunk in split_with_overlap(source.text, 1000, 100):
+        for chunk in split_with_overlap(source.text, int(os.environ['SEARCH_EXTRACT_ARTICLE_LENGTH']) , int(os.environ['SEARCH_EXTRACT_ARTICLE_OVERLAP'])):
             try:
                 gpt_json = GPTJSON[Result](os.getenv("OPENAI_API_KEY"), model=os.getenv("OPENAI_MODEL_FACTCHECK"))
                 payload = await gpt_json.run(

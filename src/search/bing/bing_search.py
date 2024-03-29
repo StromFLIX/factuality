@@ -18,7 +18,7 @@ class BingSearchClient:
         Returns:
         dict: The JSON response from the API.
         """
-        params = {'q': query, 'mkt': market}
+        params = {'q': query, 'mkt': market, 'count': os.environ['MAXIMUM_SEARCH_RESULTS']}
         headers = {'Ocp-Apim-Subscription-Key': self.subscription_key}
 
         try:
