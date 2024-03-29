@@ -1,7 +1,13 @@
 # Welcome to Factuality: The Misinformation Buster!
 
-![Factuality Image](./assets/factuality.png)
-👋 Hey there, curious minds! It's me, your digital sidekick on a quest to squash misinformation, one fact at a time. Welcome to Factuality, the coolest tool in the cyber universe where we turn detective mode on and dive deep into the sea of information to bring you the truth, the whole truth, and nothing but the truth!
+<p align="left">
+  <img src="./assets/factuality.png" width="300" />
+</p>
+
+<p>
+  👋 Hey there, curious minds! It's me, your digital sidekick on a quest to squash misinformation, one fact at a time. Welcome to Factuality, the coolest tool in the cyber universe where we turn detective mode on and dive deep into the sea of information to bring you the truth, the whole truth, and nothing but the truth!
+</p>
+
 
 > Based on [long-form-factuality](https://arxiv.org/abs/2403.18802) -> [github](https://github.com/google-deepmind/long-form-factuality)
 
