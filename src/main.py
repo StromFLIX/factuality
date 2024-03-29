@@ -16,7 +16,7 @@ loader = StatementLoader()
 
 # Loading a statement from a TXT file
 source_type = SourceType.TXT
-source = "data/elon_musk_biden_claim.txt"
+source = "data/pr_discussion.txt"
 statement = loader.load_statement(source_type, source)
 claims = asyncio.run(claim_splitter.extract_claims(statement))
 results = []
