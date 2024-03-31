@@ -17,7 +17,8 @@ class Options:
         output_path = Defaults.OUTPUT_PATH.value,
         search_engine = Defaults.SEARCH_ENGINE.value,
         allowlist = Defaults.ALLOWLIST.value,
-        blocklist = Defaults.BLOCKLIST.value
+        blocklist = Defaults.BLOCKLIST.value,
+        validation_checks_per_claim = Defaults.VALIDATION_CHECKS_PER_CLAIM.value
     ):
         self.oai_api_key = oai_api_key
         self.bing_search_v7_subscription_key = bing_search_v7_subscription_key
@@ -27,9 +28,10 @@ class Options:
         self.openai_model_conclusion = openai_model_conclusion
         self.search_extract_article_length = search_extract_article_length
         self.search_extract_article_overlap = search_extract_article_overlap
-        self.maximum_search_results = maximum_search_results
+        self.maximum_search_results = int(maximum_search_results)
         self.output_format = output_format
         self.output_path = output_path
         self.search_engine = search_engine
         self.allowlist = json.loads(allowlist)
         self.blocklist = json.loads(blocklist)
+        self.validation_checks_per_claim = int(validation_checks_per_claim)

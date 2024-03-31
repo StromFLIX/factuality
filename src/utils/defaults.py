@@ -13,3 +13,4 @@ class Defaults(Enum):
     OUTPUT_PATH = '.'
     ALLOWLIST = '[]'
     BLOCKLIST = '[]'
+    VALIDATION_CHECKS_PER_CLAIM = 1

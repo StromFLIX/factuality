@@ -28,8 +28,8 @@ class Factuality:
         for claim in claims:
             search_client = SearchClient()
             search_results = search_client.search(self.options.search_engine, claim.claim, self.options.allowlist, self.options.blocklist, self.options.maximum_search_results)
-            checked_claim = asyncio.run(check_claim(claim, search_results))
-            results.append(checked_claim)
+            checked_claim = asyncio.run(check_claim(claim, search_results, self.options.validation_checks_per_claim))
+            results += checked_claim
 
         final_conclusion_result = asyncio.run(final_conclusion(output_markdown(results, statement, None)))
         return (final_conclusion_result, results, statement)

@@ -47,8 +47,11 @@ Respond with the following JSON schema:
 {json_schema}
 """
 
-async def check_claim(claim : Claim, sources: list[SearchResults]) -> ClaimChecked:
+async def check_claim(claim : Claim, sources: list[SearchResults], validation_checks_per_claim: int) -> list[ClaimChecked]:
+    claim_checks = []
     for source in sources:
+        if(validation_checks_per_claim <= len(claim_checks)):
+            break
         for chunk in split_with_overlap(source.text, int(os.environ['SEARCH_EXTRACT_ARTICLE_LENGTH']) , int(os.environ['SEARCH_EXTRACT_ARTICLE_OVERLAP'])):
             try:
                 logger.debug(f"Checking claim", claim=claim.claim, source=source.url)
@@ -67,26 +70,29 @@ async def check_claim(claim : Claim, sources: list[SearchResults]) -> ClaimCheck
                 )
                 if (payload.response.result == ResultType.REJECTED or payload.response.result == ResultType.VERIFIED) and payload.response.source_quote is not None:
                     logger.debug(f"Claim checked", claim=claim.claim, source=source.url, result=payload.response.result, source_quote=payload.response.source_quote)
-                    return ClaimChecked(
+                    claim_checks.append(ClaimChecked(
                         claim=claim.claim,
                         reference=claim.reference,
                         verification_query=claim.verification_query,
                         result=payload.response.result,
                         source_reference=source.url,
                         source_quote=payload.response.source_quote
-                    )
+                    ))
+                    break
             except Exception as e:
                 logger.warning(f"Error checking claim {claim.claim} with source {source.url}: {e}")
                 pass
+    if len(claim_checks) > 0:
+        return claim_checks
     logger.debug(f"Claim checked", claim=claim.claim, result=ResultType.INCONCLUSIVE)
-    return ClaimChecked(
+    return [ClaimChecked(
                 claim=claim.claim,
                 reference=claim.reference,
                 verification_query=claim.verification_query,
                 result=ResultType.INCONCLUSIVE,
                 source_reference=None,
                 source_quote=None
-            )
+            )]
 
 
 

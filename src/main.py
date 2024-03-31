@@ -68,6 +68,14 @@ def main():
         help="List of domains to block for search results (allowlist takes precedence over blocklist). Default is empty. Format ['domain1.com', 'domain2.com']",
     )
     parser.add_argument(
+        "--validation-checks-per-claim",
+        type=str,
+        default=os.getenv(
+            "VALIDATION_CHECKS_PER_CLAIM", Defaults.VALIDATION_CHECKS_PER_CLAIM.value
+        ),
+        help="How many resources will factuality use the verify a claim. Default is 1.",
+    )
+    parser.add_argument(
         "--bing-search-v7-subscription-key",
         type=str,
         default=os.getenv("BING_SEARCH_V7_SUBSCRIPTION_KEY"),
@@ -147,13 +155,14 @@ def main():
         search_engine=args.search_engine,
         allowlist=args.allowlist,
         blocklist=args.blocklist,
+        validation_checks_per_claim=args.validation_checks_per_claim,
     )
 
     factuality = Factuality(options)
     conclusion, checked_claims, statement = factuality.check(args.statement)
     statement_part = re.sub(r'[^\x00-\x7F]+', '', statement[:10].replace(' ', '_'))
     current_time = datetime.datetime.now().strftime("%Y%m%d%H%M%S")
-    filename = f"{statement_part}_{current_time}.json"
+    filename = f"{statement_part}_{current_time}"
     if options.output_format == "markdown":
         with open(f"{options.output_path}/{filename}.md", "w") as f:
             markdown_text = factuality.convert_conclusions_to_markdown(
