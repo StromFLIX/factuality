@@ -1,7 +1,6 @@
 import os
 from factuality.final_conclusion.final_conclusion import Conclusion
 from factuality.fact_check.fact_check import ClaimChecked, check_claim
-from factuality.statement_loader.statement_loader import SourceType, StatementLoader
 from factuality.claim_splitter import claim_splitter
 from factuality.search.search import SearchClient
 from factuality.result_output.markdown import output_markdown
@@ -21,7 +20,7 @@ class Factuality:
                 statement = file.read()
         else:
             statement = pathOrText
-            
+
         claims = asyncio.run(
             claim_splitter.extract_claims(
                 statement, self.options.oai_api_key, self.options.openai_model_extract
