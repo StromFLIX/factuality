@@ -3,7 +3,6 @@ import requests
 
 class BingSearchClient:
     def __init__(self):
-        # Initialize with your Bing Search API subscription key and endpoint
         self.subscription_key = os.environ['BING_SEARCH_V7_SUBSCRIPTION_KEY']
         self.endpoint = os.environ['BING_SEARCH_V7_ENDPOINT'] + "/v7.0/search"
 
@@ -23,9 +22,8 @@ class BingSearchClient:
 
         try:
             response = requests.get(self.endpoint, headers=headers, params=params)
-            response.raise_for_status()  # Raises stored HTTPError, if one occurred.
+            response.raise_for_status()
 
-            # Return the parsed JSON response.
             return response.json()
         except Exception as ex:
             raise ex

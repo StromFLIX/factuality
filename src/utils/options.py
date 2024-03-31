@@ -13,7 +13,8 @@ class Options:
         search_extract_article_overlap = Defaults.SEARCH_EXTRACT_ARTICLE_OVERLAP.value,
         maximum_search_results = Defaults.MAXIMUM_SEARCH_RESULTS.value,
         output_format = Defaults.OUTPUT_FORMAT.value,
-        output_path = Defaults.OUTPUT_PATH.value
+        output_path = Defaults.OUTPUT_PATH.value,
+        search_engine = Defaults.SEARCH_ENGINE.value
     ):
         self.oai_api_key = oai_api_key
         self.bing_search_v7_subscription_key = bing_search_v7_subscription_key
@@ -26,3 +27,4 @@ class Options:
         self.maximum_search_results = maximum_search_results
         self.output_format = output_format
         self.output_path = output_path
+        self.search_engine = search_engine

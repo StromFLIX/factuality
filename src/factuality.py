@@ -3,7 +3,7 @@ from final_conclusion.final_conclusion import Conclusion
 from fact_check.fact_check import ClaimChecked, check_claim
 from statement_loader.statement_loader import SourceType, StatementLoader
 from claim_splitter import claim_splitter
-from search.search import SearchEngineType, SearchClient
+from search.search import SearchClient
 from result_output.markdown import output_markdown
 from final_conclusion.final_conclusion import final_conclusion
 from utils.options import Options
@@ -27,7 +27,7 @@ class Factuality:
         results : list[ClaimChecked] = []
         for claim in claims:
             search_client = SearchClient()
-            search_results = search_client.search(SearchEngineType.BING, claim.claim)
+            search_results = search_client.search(self.options.search_engine, claim.claim)
             checked_claim = asyncio.run(check_claim(claim, search_results))
             results.append(checked_claim)
 

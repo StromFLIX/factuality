@@ -39,6 +39,12 @@ def main():
         default=os.getenv("OUTPUT_PATH", Defaults.OUTPUT_PATH.value),
     )
     parser.add_argument(
+        "--search-engine",
+        type=str,
+        help="The search engine to use for extracting articles. Default is Bing. Supported search engines: Bing, Google.",
+        default=os.getenv("SEARCH_ENGINE", Defaults.SEARCH_ENGINE.value),
+    )
+    parser.add_argument(
         "--oai-api-key",
         type=str,
         default=os.getenv("OPENAI_API_KEY"),
@@ -121,6 +127,7 @@ def main():
         maximum_search_results=args.maximum_search_results,
         output_format=args.output,
         output_path=args.output_path,
+        search_engine=args.search_engine,
     )
 
     factuality = Factuality(options)
