@@ -7,6 +7,10 @@
             "request": "launch",
             "program": "${workspaceFolder}/src/main.py",
             "console": "integratedTerminal",
+            "args": [
+                "--statement",
+                "data/obama_no_citizen.txt"
+            ]
         }
     ]
 }

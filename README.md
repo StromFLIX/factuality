@@ -60,3 +60,14 @@
 > U.S., making him unfit for office, is entirely false. The source from which this claim originates, World News Daily Report,
 > has a disclaimer stating that it is not a factual source. Additionally, independent fact-checking by Snopes has explicitly
 > rejected both claims, confirming that the statement is baseless and untrue. Therefore, the statement has no truthfulness.
+
+
+---
+
+> Obama is actually born in Kenya, the country of his father. This means Obama is not "a natural-born citizen of the U.S."\n> and is therefore not fit for office.
+
+    |                                        Claim                                         |      Result       |                Source Reference                 |                                                                                                                                                                        Source Quote                                                                                                                                                                        |
+    |--------------------------------------------------------------------------------------|-------------------|-------------------------------------------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+    |Obama is actually born in Kenya, the country of his father.                           |ResultType.REJECTED|https://www.snopes.com/fact-check/birthing-pains/|World News Daily Report\'s disclaimer page states that: World News Daily Report is a news and political satire web publication, which may or may not use real names, often in semi-real or mostly fictitious ways. All news articles contained within worldnewsdailyreport.com are fiction, and presumably fake news.                                        |
+    |Obama is not \'a natural-born citizen of the U.S.\' and is therefore not fit for office.|ResultType.VERIFIED|https://www.snopes.com/fact-check/native-son/    |The minimum qualifications for the presidency of the United States specified in Article II of the Constitution are few and seemingly straightforward: In order to be President, a person must be a natural-born citizen of the United States, must be at least thirty-five years old, and must have been a resident of the United States for fourteen years.|
+
