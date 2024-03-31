@@ -4,9 +4,9 @@ import os
 import re
 from dotenv import load_dotenv
 
-from factuality import Factuality
-from utils.defaults import Defaults
-from utils.options import Options
+from factuality.utils.defaults import Defaults
+from factuality.utils.options import Options
+from factuality.runner.factuality import Factuality
 from rich.console import Console
 from rich.markdown import Markdown
 

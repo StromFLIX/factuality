@@ -1,13 +1,13 @@
 from enum import Enum
 from typing import Literal
-from search.bing.bing_search import BingSearchClient
+from factuality.search.bing.bing_search import BingSearchClient
 from newspaper import Article
 from pydantic import BaseModel
-from search.google.google_search import GoogleSearchClient
-from utils import logging
+from factuality.search.google.google_search import GoogleSearchClient
+from factuality.utils import logging
 from urllib.parse import urlparse
 
-from utils.options import Options
+from factuality.utils.options import Options
 
 logger = logging.get_logger()
 

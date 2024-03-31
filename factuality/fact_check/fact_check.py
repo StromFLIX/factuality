@@ -4,9 +4,9 @@ import os
 from urllib.parse import urlparse
 from gpt_json import GPTJSON, GPTMessage, GPTMessageRole
 from pydantic import BaseModel
-from claim_splitter.claim_splitter import Claim
-from search.search import SearchResults
-from utils import logging
+from factuality.claim_splitter.claim_splitter import Claim
+from factuality.search.search import SearchResults
+from factuality.utils import logging
 
 logger = logging.get_logger()
 

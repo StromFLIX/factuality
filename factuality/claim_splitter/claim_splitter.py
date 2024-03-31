@@ -2,7 +2,7 @@ import asyncio
 import os
 from gpt_json import GPTJSON, GPTMessage, GPTMessageRole
 from pydantic import BaseModel, Field
-from utils import logging
+from factuality.utils import logging
 
 logger = logging.get_logger()
 

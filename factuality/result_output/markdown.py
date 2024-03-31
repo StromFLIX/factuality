@@ -1,8 +1,8 @@
 import textwrap
 from pytablewriter import MarkdownTableWriter
 
-from fact_check.fact_check import ClaimChecked
-from final_conclusion.final_conclusion import Conclusion
+from factuality.fact_check.fact_check import ClaimChecked
+from factuality.final_conclusion.final_conclusion import Conclusion
 
 def convert_claims_markdown_table(claimchecks: list[ClaimChecked]) -> str:
     value_matrix = []

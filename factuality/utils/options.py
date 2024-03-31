@@ -1,4 +1,4 @@
-from utils.defaults import Defaults
+from factuality.utils.defaults import Defaults
 import json
 
 class Options:

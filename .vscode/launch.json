@@ -5,7 +5,7 @@
             "name": "Python: Poetry",
             "type": "python",
             "request": "launch",
-            "program": "${workspaceFolder}/src/main.py",
+            "program": "${workspaceFolder}/factuality/__main__.py",
             "console": "integratedTerminal",
             "args": [
                 "--statement",

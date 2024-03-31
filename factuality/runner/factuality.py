@@ -1,12 +1,12 @@
 import os
-from final_conclusion.final_conclusion import Conclusion
-from fact_check.fact_check import ClaimChecked, check_claim
-from statement_loader.statement_loader import SourceType, StatementLoader
-from claim_splitter import claim_splitter
-from search.search import SearchClient
-from result_output.markdown import output_markdown
-from final_conclusion.final_conclusion import final_conclusion
-from utils.options import Options
+from factuality.final_conclusion.final_conclusion import Conclusion
+from factuality.fact_check.fact_check import ClaimChecked, check_claim
+from factuality.statement_loader.statement_loader import SourceType, StatementLoader
+from factuality.claim_splitter import claim_splitter
+from factuality.search.search import SearchClient
+from factuality.result_output.markdown import output_markdown
+from factuality.final_conclusion.final_conclusion import final_conclusion
+from factuality.utils.options import Options
 import asyncio
 
 

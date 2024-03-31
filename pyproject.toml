@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "factuality"
-version = "1.0.7"
+version = "1.0.13"
 description = ""
 authors = ["Felix Mönckemeyer <felix.moenckemeyer@rwth-aachen.de>"]
 license = "MIT"
@@ -20,4 +20,4 @@ requires = ["poetry-core"]
 build-backend = "poetry.core.masonry.api"
 
 [tool.poetry.scripts]
-factuality = "main:main"
+factuality = "factuality.__main__:main"

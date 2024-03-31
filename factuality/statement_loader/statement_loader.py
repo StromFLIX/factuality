@@ -1,6 +1,6 @@
 from enum import Enum
-from statement_loader.txt_loader.txt_loader import TxtLoader
-from utils import logging
+from factuality.statement_loader.txt_loader.txt_loader import TxtLoader
+from factuality.utils import logging
 logger = logging.get_logger()
 
 # Define an enum for source types
