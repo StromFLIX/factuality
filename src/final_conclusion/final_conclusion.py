@@ -2,6 +2,8 @@ import asyncio
 import os
 from gpt_json import GPTJSON, GPTMessage, GPTMessageRole
 from pydantic import BaseModel, Field
+from utils import logging
+logger = logging.get_logger()
 
 class Conclusion(BaseModel):
     score: int = Field(description="From 0 - 100, how truthfull is the statement?")
@@ -19,6 +21,7 @@ Respond with the following JSON schema:
 """
 
 async def final_conclusion(investigation_results: str) -> Conclusion:
+    logger.debug(f"Generating final conclusion")
     gpt_json = GPTJSON[Conclusion](os.getenv("OPENAI_API_KEY"), model=os.getenv("OPENAI_MODEL_CONCLUSION"))
     payload = await gpt_json.run(
         messages=[
@@ -32,4 +35,5 @@ async def final_conclusion(investigation_results: str) -> Conclusion:
             )
         ]
     )
+    logger.debug(f"Final conclusion", score=payload.response.score if payload.response else None)
     return payload.response

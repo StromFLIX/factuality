@@ -13,6 +13,7 @@ python-dotenv = "^1.0.1"
 gpt-json = "^0.4.2"
 newspaper3k = "^0.2.8"
 pytablewriter = "^1.2.0"
+structlog = "^24.1.0"
 
 
 [build-system]

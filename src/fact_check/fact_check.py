@@ -5,6 +5,8 @@ from gpt_json import GPTJSON, GPTMessage, GPTMessageRole
 from pydantic import BaseModel
 from claim_splitter.claim_splitter import Claim
 from search.search import SearchResults
+from utils import logging
+logger = logging.get_logger()
 
 class ResultType(Enum):
     VERIFIED = "verified"
@@ -49,6 +51,7 @@ async def check_claim(claim : Claim, sources: list[SearchResults]) -> ClaimCheck
     for source in sources:
         for chunk in split_with_overlap(source.text, int(os.environ['SEARCH_EXTRACT_ARTICLE_LENGTH']) , int(os.environ['SEARCH_EXTRACT_ARTICLE_OVERLAP'])):
             try:
+                logger.debug(f"Checking claim", claim=claim.claim, source=source.url)
                 gpt_json = GPTJSON[Result](os.getenv("OPENAI_API_KEY"), model=os.getenv("OPENAI_MODEL_FACTCHECK"))
                 payload = await gpt_json.run(
                     messages=[
@@ -63,6 +66,7 @@ async def check_claim(claim : Claim, sources: list[SearchResults]) -> ClaimCheck
                     ]
                 )
                 if (payload.response.result == ResultType.REJECTED or payload.response.result == ResultType.VERIFIED) and payload.response.source_quote is not None:
+                    logger.debug(f"Claim checked", claim=claim.claim, source=source.url, result=payload.response.result.value, source_quote=payload.response.source_quote)
                     return ClaimChecked(
                         claim=claim.claim,
                         reference=claim.reference,
@@ -72,8 +76,9 @@ async def check_claim(claim : Claim, sources: list[SearchResults]) -> ClaimCheck
                         source_quote=payload.response.source_quote
                     )
             except Exception as e:
-                print(e)
+                logger.warning(f"Error checking claim {claim.claim} with source {source.url}: {e}")
                 pass
+    logger.debug(f"Claim checked", claim=claim.claim, result=ResultType.INCONCLUSIVE.value)
     return ClaimChecked(
                 claim=claim.claim,
                 reference=claim.reference,

@@ -8,15 +8,18 @@ from claim_splitter import claim_splitter
 from search.search import SearchEngineType, SearchClient
 from result_output.markdown import output_markdown
 from final_conclusion.final_conclusion import final_conclusion
+from utils import logging
 
 load_dotenv()
 
 
 loader = StatementLoader()
+logger = logging.get_logger()
 
 # Loading a statement from a TXT file
 source_type = SourceType.TXT
 source = "data/obama_no_citizen.txt"
+
 statement = loader.load_statement(source_type, source)
 claims = asyncio.run(claim_splitter.extract_claims(statement))
 results = []

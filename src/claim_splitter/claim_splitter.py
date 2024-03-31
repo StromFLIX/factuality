@@ -2,6 +2,8 @@ import asyncio
 import os
 from gpt_json import GPTJSON, GPTMessage, GPTMessageRole
 from pydantic import BaseModel, Field
+from utils import logging
+logger = logging.get_logger()
 
 class Claim(BaseModel):
     claim: str
@@ -23,6 +25,7 @@ Respond with the following JSON schema:
 """
 
 async def extract_claims(text: str) -> list[Claim]:
+    logger.debug(f"Extracting claims from statement", statement=text)
     gpt_json = GPTJSON[ClaimsArray](os.getenv("OPENAI_API_KEY"), model=os.getenv("OPENAI_MODEL_EXTRACT")) # gpt-4-turbo-preview
     payload = await gpt_json.run(
         messages=[
@@ -36,4 +39,5 @@ async def extract_claims(text: str) -> list[Claim]:
             )
         ]
     )
+    logger.debug(f"Succesfully extracted claims", statement=text ,claims=payload.response.claims)
     return payload.response.claims
