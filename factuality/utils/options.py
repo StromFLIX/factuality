@@ -5,7 +5,7 @@ class Options:
     def __init__(
         self,
         oai_api_key,
-        bing_search_v7_subscription_key,
+        bing_search_v7_subscription_key = None,
         bing_search_v7_endpoint = Defaults.BING_SEARCH_V7_ENDPOINT.value,
         openai_model_extract = Defaults.OPENAI_MODEL_EXTRACT.value,
         openai_model_factcheck = Defaults.OPENAI_MODEL_FACTCHECK.value,
@@ -19,7 +19,7 @@ class Options:
         allowlist = Defaults.ALLOWLIST.value,
         blocklist = Defaults.BLOCKLIST.value,
         validation_checks_per_claim = Defaults.VALIDATION_CHECKS_PER_CLAIM.value,
-        same_site_allowed = Defaults.SAME_SITE_ALLOWED.value,
+        same_site_allowed = f"{Defaults.SAME_SITE_ALLOWED.value}",
         google_search_api_key = None,
         google_search_cx = None,
     ):

@@ -80,7 +80,7 @@ def main():
         "--same-site-allowed",
         type=str,
         default=os.getenv(
-            "SAME_SITE_ALLOWED", Defaults.SAME_SITE_ALLOWED.value
+            "SAME_SITE_ALLOWED", f"{Defaults.SAME_SITE_ALLOWED.value}"
         ),
         help="If the same site is allowed to be used multiple times for the same claim. Default is True.",
     )
