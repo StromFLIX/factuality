@@ -22,7 +22,11 @@ class Factuality:
         loader = StatementLoader()
 
         statement = loader.load_statement(source_type, source)
-        claims = asyncio.run(claim_splitter.extract_claims(statement))
+        claims = asyncio.run(
+            claim_splitter.extract_claims(
+                statement, self.options.oai_api_key, self.options.openai_model_extract
+            )
+        )
         results: list[ClaimChecked] = []
         for claim in claims:
             search_client = SearchClient()
@@ -37,12 +41,20 @@ class Factuality:
                     search_results,
                     self.options.validation_checks_per_claim,
                     self.options.same_site_allowed,
+                    self.options.search_extract_article_length,
+                    self.options.search_extract_article_overlap,
+                    self.options.oai_api_key,
+                    self.options.openai_model_factcheck,
                 )
             )
             results += checked_claim
 
         final_conclusion_result = asyncio.run(
-            final_conclusion(output_markdown(results, statement, None))
+            final_conclusion(
+                output_markdown(results, statement, None),
+                self.options.oai_api_key,
+                self.options.openai_model_conclusion,
+            )
         )
         return (final_conclusion_result, results, statement)
 

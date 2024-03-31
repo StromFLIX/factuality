@@ -20,9 +20,9 @@ Respond with the following JSON schema:
 {json_schema}
 """
 
-async def final_conclusion(investigation_results: str) -> Conclusion:
+async def final_conclusion(investigation_results: str, oai_key: str, oai_model: str) -> Conclusion:
     logger.debug(f"Generating final conclusion")
-    gpt_json = GPTJSON[Conclusion](os.getenv("OPENAI_API_KEY"), model=os.getenv("OPENAI_MODEL_CONCLUSION"))
+    gpt_json = GPTJSON[Conclusion](oai_key, model=oai_model)
     payload = await gpt_json.run(
         messages=[
             GPTMessage(

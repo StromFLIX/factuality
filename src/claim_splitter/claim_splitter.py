@@ -3,14 +3,18 @@ import os
 from gpt_json import GPTJSON, GPTMessage, GPTMessageRole
 from pydantic import BaseModel, Field
 from utils import logging
+
 logger = logging.get_logger()
+
 
 class Claim(BaseModel):
     claim: str
     reference: str | None = None
-    verification_query: str 
+    verification_query: str
+
     class Config:
         use_enum_values = True
+
 
 class ClaimsArray(BaseModel):
     claims: list[Claim]
@@ -26,9 +30,10 @@ Respond with the following JSON schema:
 {json_schema}
 """
 
-async def extract_claims(text: str) -> list[Claim]:
+
+async def extract_claims(text: str, oai_key: str, oai_model: str) -> list[Claim]:
     logger.debug(f"Extracting claims from statement", statement=text)
-    gpt_json = GPTJSON[ClaimsArray](os.getenv("OPENAI_API_KEY"), model=os.getenv("OPENAI_MODEL_EXTRACT")) # gpt-4-turbo-preview
+    gpt_json = GPTJSON[ClaimsArray](oai_key, model=oai_model)
     payload = await gpt_json.run(
         messages=[
             GPTMessage(
@@ -38,8 +43,10 @@ async def extract_claims(text: str) -> list[Claim]:
             GPTMessage(
                 role=GPTMessageRole.USER,
                 content=text,
-            )
+            ),
         ]
     )
-    logger.debug(f"Succesfully extracted claims", statement=text ,claims=payload.response.claims)
+    logger.debug(
+        f"Succesfully extracted claims", statement=text, claims=payload.response.claims
+    )
     return payload.response.claims
