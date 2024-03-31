@@ -7,7 +7,7 @@ license = "MIT"
 readme = "README.md"
 
 [tool.poetry.dependencies]
-python = "^3.10"
+python = "^3.11"
 python-dotenv = "^1.0.1"
 gpt-json = "^0.4.2"
 newspaper3k = "^0.2.8"
