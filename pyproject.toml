@@ -1,13 +1,13 @@
 [tool.poetry]
 name = "factuality"
-version = "1.0.6"
+version = "1.0.7"
 description = ""
 authors = ["Felix Mönckemeyer <felix.moenckemeyer@rwth-aachen.de>"]
 license = "MIT"
 readme = "README.md"
 
 [tool.poetry.dependencies]
-python = "^3.11"
+python = "^3.10"
 python-dotenv = "^1.0.1"
 gpt-json = "^0.4.2"
 newspaper3k = "^0.2.8"
