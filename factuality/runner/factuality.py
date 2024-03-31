@@ -15,13 +15,13 @@ class Factuality:
         self.options = options
 
     def check(self, pathOrText: str) -> tuple[Conclusion, list[ClaimChecked], str]:
+        statement = ""
         if os.path.isfile(pathOrText):
-            source_type = SourceType.TXT
-            source = pathOrText
-
-        loader = StatementLoader()
-
-        statement = loader.load_statement(source_type, source)
+            with open(pathOrText, "r") as file:
+                statement = file.read()
+        else:
+            statement = pathOrText
+            
         claims = asyncio.run(
             claim_splitter.extract_claims(
                 statement, self.options.oai_api_key, self.options.openai_model_extract
