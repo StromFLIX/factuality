@@ -19,7 +19,9 @@ class Options:
         allowlist = Defaults.ALLOWLIST.value,
         blocklist = Defaults.BLOCKLIST.value,
         validation_checks_per_claim = Defaults.VALIDATION_CHECKS_PER_CLAIM.value,
-        same_site_allowed = Defaults.SAME_SITE_ALLOWED.value
+        same_site_allowed = Defaults.SAME_SITE_ALLOWED.value,
+        google_search_api_key = None,
+        google_search_cx = None,
     ):
         self.oai_api_key = oai_api_key
         self.bing_search_v7_subscription_key = bing_search_v7_subscription_key
@@ -37,3 +39,5 @@ class Options:
         self.blocklist = json.loads(blocklist)
         self.validation_checks_per_claim = int(validation_checks_per_claim)
         self.same_site_allowed = True if same_site_allowed.lower() == 'true' else False if same_site_allowed.lower() == 'false' else None
+        self.google_search_api_key = google_search_api_key
+        self.google_search_cx = google_search_cx

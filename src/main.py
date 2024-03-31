@@ -99,6 +99,18 @@ def main():
         help="Bing Search V7 Endpoint URL",
     )
     parser.add_argument(
+        "--google-search-api-key",
+        type=str,
+        default=os.getenv("GOOGLE_SEARCH_API_KEY"),
+        help="Google Search API Key",
+    )
+    parser.add_argument(
+        "--google-search-cx",
+        type=str,
+        default=os.getenv("GOOGLE_SEARCH_CX"),
+        help="Google Search identifier of the Programmable Search Engine",
+    )
+    parser.add_argument(
         "--openai-model-extract",
         type=str,
         default=os.getenv("OPENAI_MODEL_EXTRACT", Defaults.OPENAI_MODEL_EXTRACT.value),
@@ -166,6 +178,8 @@ def main():
         blocklist=args.blocklist,
         validation_checks_per_claim=args.validation_checks_per_claim,
         same_site_allowed=args.same_site_allowed,
+        google_search_api_key=args.google_search_api_key,
+        google_search_cx=args.google_search_cx,
     )
 
     factuality = Factuality(options)

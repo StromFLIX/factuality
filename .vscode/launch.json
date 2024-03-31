@@ -10,8 +10,6 @@
             "args": [
                 "--statement",
                 "data/obama_no_citizen.txt",
-                "-o",
-                "json"
             ]
         }
     ]

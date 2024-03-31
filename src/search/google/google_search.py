@@ -3,9 +3,9 @@ import requests
 
 
 class GoogleSearchClient:
-    def __init__(self):
-        self.api_key = os.environ["GOOGLE_SEARCH_API_KEY"]
-        self.search_engine_id = os.environ["GOOGLE_SEARCH_ENGINE_ID"]
+    def __init__(self, api_key, search_engine_id):
+        self.api_key = api_key
+        self.search_engine_id = search_engine_id
 
     def search(self, query, maximum_search_results, allowlist, blocklist):
         """

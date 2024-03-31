@@ -2,9 +2,9 @@ import os
 import requests
 
 class BingSearchClient:
-    def __init__(self):
-        self.subscription_key = os.environ['BING_SEARCH_V7_SUBSCRIPTION_KEY']
-        self.endpoint = os.environ['BING_SEARCH_V7_ENDPOINT'] + "/v7.0/search"
+    def __init__(self, subscription_key, endpoint):
+        self.subscription_key = subscription_key
+        self.endpoint = endpoint + "/v7.0/search"
 
     def search(self, query, maximum_search_results, allowlist, blocklist):
         """
@@ -26,7 +26,7 @@ class BingSearchClient:
         elif len(blocklist) > 0 and len(allowlist) == 0:
             q += " " + " OR ".join(map(lambda x: f"-site:{x}", blocklist))
         params['q'] = q
-        
+
         try:
             response = requests.get(self.endpoint, headers=headers, params=params)
             response.raise_for_status()
