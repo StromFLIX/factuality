@@ -1,4 +1,7 @@
+import datetime
+import json
 import os
+import re
 from dotenv import load_dotenv
 
 from factuality import Factuality
@@ -17,71 +20,90 @@ def main():
     )
     parser.add_argument(
         "--statement",
+        "-s",
         type=str,
         help="Statement to fact-check can be text or path to a text file",
         required=True,
     )
     parser.add_argument(
+        "--output",
+        "-o",
+        type=str,
+        help="The output format for the fact-check results. Default is console. Supported formats: console, markdown, json.",
+        default=os.getenv("OUTPUT_FORMAT", Defaults.OUTPUT_FORMAT.value),
+    )
+    parser.add_argument(
+        "--output-path",
+        type=str,
+        help="The output path for the fact-check results. Default is the folder the script is run from.",
+        default=os.getenv("OUTPUT_PATH", Defaults.OUTPUT_PATH.value),
+    )
+    parser.add_argument(
         "--oai-api-key",
-        "-oai_key",
         type=str,
         default=os.getenv("OPENAI_API_KEY"),
         help="OpenAI API key",
     )
     parser.add_argument(
         "--bing-search-v7-subscription-key",
-        "-bsv7_key",
         type=str,
         default=os.getenv("BING_SEARCH_V7_SUBSCRIPTION_KEY"),
         help="Bing Search V7 Subscription Key",
     )
     parser.add_argument(
         "--bing-search-v7-endpoint",
-        "-bsv7_endpoint",
         type=str,
-        default=os.getenv("BING_SEARCH_V7_ENDPOINT", Defaults.BING_SEARCH_V7_ENDPOINT.value),
+        default=os.getenv(
+            "BING_SEARCH_V7_ENDPOINT", Defaults.BING_SEARCH_V7_ENDPOINT.value
+        ),
         help="Bing Search V7 Endpoint URL",
     )
     parser.add_argument(
         "--openai-model-extract",
-        "-oai_extract",
         type=str,
         default=os.getenv("OPENAI_MODEL_EXTRACT", Defaults.OPENAI_MODEL_EXTRACT.value),
         help="OpenAI Model for Extract",
     )
     parser.add_argument(
         "--openai-model-factcheck",
-        "-oai_factcheck",
         type=str,
-        default=os.getenv("OPENAI_MODEL_FACTCHECK", Defaults.OPENAI_MODEL_FACTCHECK.value),
+        default=os.getenv(
+            "OPENAI_MODEL_FACTCHECK", Defaults.OPENAI_MODEL_FACTCHECK.value
+        ),
         help="OpenAI Model for Fact Check",
     )
     parser.add_argument(
         "--openai-model-conclusion",
-        "-oai_conclusion",
         type=str,
-        default=os.getenv("OPENAI_MODEL_CONCLUSION", Defaults.OPENAI_MODEL_CONCLUSION.value),
+        default=os.getenv(
+            "OPENAI_MODEL_CONCLUSION", Defaults.OPENAI_MODEL_CONCLUSION.value
+        ),
         help="OpenAI Model for Conclusion",
     )
     parser.add_argument(
         "--search-extract-article-length",
-        "-sea_length",
         type=int,
-        default=os.getenv("SEARCH_EXTRACT_ARTICLE_LENGTH", Defaults.SEARCH_EXTRACT_ARTICLE_LENGTH.value),
+        default=os.getenv(
+            "SEARCH_EXTRACT_ARTICLE_LENGTH",
+            Defaults.SEARCH_EXTRACT_ARTICLE_LENGTH.value,
+        ),
         help="Search Extract Article Length",
     )
     parser.add_argument(
         "--search-extract-article-overlap",
-        "-sea_overlap",
         type=int,
-        default=os.getenv("SEARCH_EXTRACT_ARTICLE_OVERLAP", Defaults.SEARCH_EXTRACT_ARTICLE_OVERLAP.value),
+        default=os.getenv(
+            "SEARCH_EXTRACT_ARTICLE_OVERLAP",
+            Defaults.SEARCH_EXTRACT_ARTICLE_OVERLAP.value,
+        ),
         help="Search Extract Article Overlap",
     )
     parser.add_argument(
         "--maximum-search-results",
-        "-max_results",
         type=int,
-        default=os.getenv("MAXIMUM_SEARCH_RESULTS", Defaults.MAXIMUM_SEARCH_RESULTS.value),
+        default=os.getenv(
+            "MAXIMUM_SEARCH_RESULTS", Defaults.MAXIMUM_SEARCH_RESULTS.value
+        ),
         help="Maximum Search Results",
     )
 
@@ -97,13 +119,41 @@ def main():
         search_extract_article_length=args.search_extract_article_length,
         search_extract_article_overlap=args.search_extract_article_overlap,
         maximum_search_results=args.maximum_search_results,
+        output_format=args.output,
+        output_path=args.output_path,
     )
 
     factuality = Factuality(options)
     conclusion, checked_claims, statement = factuality.check(args.statement)
-    markdwon_text = factuality.convert_conclusions_to_markdown(checked_claims, statement, conclusion)
-    console = Console()
-    console.print(Markdown(markdwon_text))
+    statement_part = re.sub(r'[^\x00-\x7F]+', '', statement[:10].replace(' ', '_'))
+    current_time = datetime.datetime.now().strftime("%Y%m%d%H%M%S")
+    filename = f"{statement_part}_{current_time}.json"
+    if options.output_format == "markdown":
+        with open(f"{options.output_path}/{filename}.md", "w") as f:
+            markdown_text = factuality.convert_conclusions_to_markdown(
+                checked_claims, statement, conclusion
+            )
+            f.write(markdown_text)
+    elif options.output_format == "json":
+        with open(f"{options.output_path}/{filename}.json", "w") as f:
+            dict = {
+                    "checked_claims": [claim.model_dump(by_alias=True) for claim in checked_claims],
+                    "statement": statement,
+                    "conclusion": conclusion.model_dump(by_alias=True),
+                }
+            json.dump(
+                dict,
+                f,
+                indent=4,
+            )
+    elif options.output_format == "console":
+        markdown_text = factuality.convert_conclusions_to_markdown(
+            checked_claims, statement, conclusion
+        )
+        console = Console()
+        console.print(Markdown(markdown_text))
+        pass
+
 
 if __name__ == "__main__":
     main()

@@ -9,7 +9,9 @@
             "console": "integratedTerminal",
             "args": [
                 "--statement",
-                "data/obama_no_citizen.txt"
+                "data/obama_no_citizen.txt",
+                "-o",
+                "json"
             ]
         }
     ]

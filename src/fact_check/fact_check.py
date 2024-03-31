@@ -66,7 +66,7 @@ async def check_claim(claim : Claim, sources: list[SearchResults]) -> ClaimCheck
                     ]
                 )
                 if (payload.response.result == ResultType.REJECTED or payload.response.result == ResultType.VERIFIED) and payload.response.source_quote is not None:
-                    logger.debug(f"Claim checked", claim=claim.claim, source=source.url, result=payload.response.result.value, source_quote=payload.response.source_quote)
+                    logger.debug(f"Claim checked", claim=claim.claim, source=source.url, result=payload.response.result, source_quote=payload.response.source_quote)
                     return ClaimChecked(
                         claim=claim.claim,
                         reference=claim.reference,
@@ -78,7 +78,7 @@ async def check_claim(claim : Claim, sources: list[SearchResults]) -> ClaimCheck
             except Exception as e:
                 logger.warning(f"Error checking claim {claim.claim} with source {source.url}: {e}")
                 pass
-    logger.debug(f"Claim checked", claim=claim.claim, result=ResultType.INCONCLUSIVE.value)
+    logger.debug(f"Claim checked", claim=claim.claim, result=ResultType.INCONCLUSIVE)
     return ClaimChecked(
                 claim=claim.claim,
                 reference=claim.reference,

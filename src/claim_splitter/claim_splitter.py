@@ -9,6 +9,8 @@ class Claim(BaseModel):
     claim: str
     reference: str | None = None
     verification_query: str 
+    class Config:
+        use_enum_values = True
 
 class ClaimsArray(BaseModel):
     claims: list[Claim]
