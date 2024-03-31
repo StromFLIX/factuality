@@ -1,6 +1,7 @@
 import asyncio
 from enum import Enum
 import os
+from urllib.parse import urlparse
 from gpt_json import GPTJSON, GPTMessage, GPTMessageRole
 from pydantic import BaseModel
 from claim_splitter.claim_splitter import Claim
@@ -47,9 +48,12 @@ Respond with the following JSON schema:
 {json_schema}
 """
 
-async def check_claim(claim : Claim, sources: list[SearchResults], validation_checks_per_claim: int) -> list[ClaimChecked]:
+async def check_claim(claim : Claim, sources: list[SearchResults], validation_checks_per_claim: int, same_site_allowed: bool) -> list[ClaimChecked]:
     claim_checks = []
+    sources_used = []
     for source in sources:
+        if not same_site_allowed and urlparse(source.url)[1] in sources_used:
+            continue
         if(validation_checks_per_claim <= len(claim_checks)):
             break
         for chunk in split_with_overlap(source.text, int(os.environ['SEARCH_EXTRACT_ARTICLE_LENGTH']) , int(os.environ['SEARCH_EXTRACT_ARTICLE_OVERLAP'])):
@@ -70,6 +74,7 @@ async def check_claim(claim : Claim, sources: list[SearchResults], validation_ch
                 )
                 if (payload.response.result == ResultType.REJECTED or payload.response.result == ResultType.VERIFIED) and payload.response.source_quote is not None:
                     logger.debug(f"Claim checked", claim=claim.claim, source=source.url, result=payload.response.result, source_quote=payload.response.source_quote)
+                    sources_used.append(urlparse(source.url)[1])
                     claim_checks.append(ClaimChecked(
                         claim=claim.claim,
                         reference=claim.reference,

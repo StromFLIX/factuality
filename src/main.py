@@ -67,13 +67,22 @@ def main():
         ),
         help="List of domains to block for search results (allowlist takes precedence over blocklist). Default is empty. Format ['domain1.com', 'domain2.com']",
     )
+    
     parser.add_argument(
         "--validation-checks-per-claim",
-        type=str,
+        type=int,
         default=os.getenv(
             "VALIDATION_CHECKS_PER_CLAIM", Defaults.VALIDATION_CHECKS_PER_CLAIM.value
         ),
         help="How many resources will factuality use the verify a claim. Default is 1.",
+    )
+    parser.add_argument(
+        "--same-site-allowed",
+        type=str,
+        default=os.getenv(
+            "SAME_SITE_ALLOWED", Defaults.SAME_SITE_ALLOWED.value
+        ),
+        help="If the same site is allowed to be used multiple times for the same claim. Default is True.",
     )
     parser.add_argument(
         "--bing-search-v7-subscription-key",
@@ -156,6 +165,7 @@ def main():
         allowlist=args.allowlist,
         blocklist=args.blocklist,
         validation_checks_per_claim=args.validation_checks_per_claim,
+        same_site_allowed=args.same_site_allowed,
     )
 
     factuality = Factuality(options)
