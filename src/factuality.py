@@ -27,7 +27,7 @@ class Factuality:
         results : list[ClaimChecked] = []
         for claim in claims:
             search_client = SearchClient()
-            search_results = search_client.search(self.options.search_engine, claim.claim)
+            search_results = search_client.search(self.options.search_engine, claim.claim, self.options.allowlist, self.options.blocklist, self.options.maximum_search_results)
             checked_claim = asyncio.run(check_claim(claim, search_results))
             results.append(checked_claim)
 

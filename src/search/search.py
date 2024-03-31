@@ -13,14 +13,14 @@ class SearchResults(BaseModel):
     text: str
 
 class SearchClient:
-    def search(self, search_engine: Literal['google', 'bing'], query, market='en-US') -> list[SearchResults]:
+    def search(self, search_engine: Literal['google', 'bing'], query, allowlist: list[str], blocklist: list[str], maximum_search_results: int) -> list[SearchResults]:
         logger.debug(f"Searching for query", query=query, search_engine=search_engine)
         search_results = []
         if search_engine == 'bing':
-            search_results_raw = BingSearchClient().search(query, market)
+            search_results_raw = BingSearchClient().search(query, maximum_search_results, allowlist, blocklist)
             search_results = [{'url': search_result['url'], 'title': search_result['name']} for search_result in search_results_raw['webPages']['value']]
         elif search_engine == 'google':
-            search_results_raw = GoogleSearchClient().search(query)
+            search_results_raw = GoogleSearchClient().search(query, maximum_search_results, allowlist, blocklist)
             search_results = [{'url': search_result['link'], 'title': search_result['title'] } for search_result in search_results_raw['items'] if search_result.get('fileFormat') is None]
         else:
             raise ValueError(f"No loader found for search_engine type: {search_engine}")

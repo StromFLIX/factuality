@@ -1,4 +1,5 @@
 from utils.defaults import Defaults
+import json
 
 class Options:
     def __init__(
@@ -14,7 +15,9 @@ class Options:
         maximum_search_results = Defaults.MAXIMUM_SEARCH_RESULTS.value,
         output_format = Defaults.OUTPUT_FORMAT.value,
         output_path = Defaults.OUTPUT_PATH.value,
-        search_engine = Defaults.SEARCH_ENGINE.value
+        search_engine = Defaults.SEARCH_ENGINE.value,
+        allowlist = Defaults.ALLOWLIST.value,
+        blocklist = Defaults.BLOCKLIST.value
     ):
         self.oai_api_key = oai_api_key
         self.bing_search_v7_subscription_key = bing_search_v7_subscription_key
@@ -28,3 +31,5 @@ class Options:
         self.output_format = output_format
         self.output_path = output_path
         self.search_engine = search_engine
+        self.allowlist = json.loads(allowlist)
+        self.blocklist = json.loads(blocklist)

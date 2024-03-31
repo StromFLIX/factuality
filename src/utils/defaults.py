@@ -11,3 +11,5 @@ class Defaults(Enum):
     SEARCH_ENGINE = 'bing'
     OUTPUT_FORMAT = 'console'
     OUTPUT_PATH = '.'
+    ALLOWLIST = '[]'
+    BLOCKLIST = '[]'

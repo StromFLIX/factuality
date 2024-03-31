@@ -6,7 +6,7 @@ class BingSearchClient:
         self.subscription_key = os.environ['BING_SEARCH_V7_SUBSCRIPTION_KEY']
         self.endpoint = os.environ['BING_SEARCH_V7_ENDPOINT'] + "/v7.0/search"
 
-    def search(self, query, market='en-US'):
+    def search(self, query, maximum_search_results, allowlist, blocklist):
         """
         Search for a query string using Bing Search API.
 
@@ -17,9 +17,16 @@ class BingSearchClient:
         Returns:
         dict: The JSON response from the API.
         """
-        params = {'q': query, 'mkt': market, 'count': os.environ['MAXIMUM_SEARCH_RESULTS']}
+        params = {'mkt': "en-us", 'count': maximum_search_results}
         headers = {'Ocp-Apim-Subscription-Key': self.subscription_key}
 
+        q = query
+        if len(allowlist) > 0:
+            q += " " + " OR ".join(map(lambda x: f"site:{x}", allowlist))
+        elif len(blocklist) > 0 and len(allowlist) == 0:
+            q += " " + " OR ".join(map(lambda x: f"-site:{x}", blocklist))
+        params['q'] = q
+        
         try:
             response = requests.get(self.endpoint, headers=headers, params=params)
             response.raise_for_status()

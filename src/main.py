@@ -51,6 +51,23 @@ def main():
         help="OpenAI API key",
     )
     parser.add_argument(
+        "--allowlist",
+        type=str,
+        default=os.getenv(
+            "ALLOWLIST", Defaults.ALLOWLIST.value
+        ),
+        help="List of domains to allow for search results (allowlist takes precedence over blocklist). Default is empty. Format ['domain1.com', 'domain2.com']",
+    )
+    
+    parser.add_argument(
+        "--blocklist",
+        type=str,
+        default=os.getenv(
+            "BLOCKLIST", Defaults.BLOCKLIST.value
+        ),
+        help="List of domains to block for search results (allowlist takes precedence over blocklist). Default is empty. Format ['domain1.com', 'domain2.com']",
+    )
+    parser.add_argument(
         "--bing-search-v7-subscription-key",
         type=str,
         default=os.getenv("BING_SEARCH_V7_SUBSCRIPTION_KEY"),
@@ -128,6 +145,8 @@ def main():
         output_format=args.output,
         output_path=args.output_path,
         search_engine=args.search_engine,
+        allowlist=args.allowlist,
+        blocklist=args.blocklist,
     )
 
     factuality = Factuality(options)
