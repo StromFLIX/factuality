@@ -4,7 +4,7 @@
 
 ![factuality avatar](./assets/factuality.png) 
 
-![alt](./assets/factuality.png){: width="50%"}
+![alt|300](./assets/factuality.png)
 
 👋 Hey there, curious minds! It's me, your digital sidekick **Factuality** on a quest to squash misinformation, one fact at a time. Welcome to the coolest tool in the cyber universe where we turn detective mode on and dive deep into the sea of information to bring you the truth, the whole truth, and nothing but the truth!
 
