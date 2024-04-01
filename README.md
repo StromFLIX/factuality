@@ -26,6 +26,8 @@
 
   <img width="400" src="examples/demo.svg">
 
+![Demo of factuality](./examples/demo.svg) 
+
 > Demo of factuality in action
 
 ## Quick start
