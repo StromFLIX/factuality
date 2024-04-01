@@ -2,18 +2,44 @@
 
 <img src="./assets/factuality.png" width="300" />
 
+![factuality avatar](./assets/factuality.png) 
+
+![alt](./assets/factuality.png){: width="50%"}
+
 👋 Hey there, curious minds! It's me, your digital sidekick **Factuality** on a quest to squash misinformation, one fact at a time. Welcome to the coolest tool in the cyber universe where we turn detective mode on and dive deep into the sea of information to bring you the truth, the whole truth, and nothing but the truth!
 
 
 > Based on [long-form-factuality](https://arxiv.org/abs/2403.18802) ->
 > [github](https://github.com/google-deepmind/long-form-factuality)
 
-<p align="center">
-  <img width="600" src="examples/demo.svg">
-</p>
+  <img width="400" src="examples/demo.svg">
 
 > Demo of factuality in action
 
+## Quick start
+
+### Requirements
+
+- Python 3.11 or higher is needed for typed GPT response support.
+- Access to one of the two supported search engines (Bing, Google)
+  - Google allows 100 free search queries per day. [How to setup](https://developers.google.com/custom-search/v1/overview)
+  - Bing allows for 1000 fre search queries per month. [How to
+    setup](https://learn.microsoft.com/en-us/bing/search-apis/bing-web-search/create-bing-search-service-resource)
+- Access to [Openai API](https://openai.com/blog/openai-api)
+
+### Install
+
+```bash
+pip install factuality
+```
+
+### Run
+
+```bash
+factuality -s "test something is ridiculus" --oai-api-key "<oai-key-here>" --bing-search-v7-subscription-key "<bing-search-key-here>"
+```
+
+> ⚠️ Defaults are set to `gpt-3.5-turbo` better resultus especially for extraction and conclusion can be achived with `gpt-4-turbo-preview`
 
 ## Output
 
