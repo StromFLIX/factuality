@@ -26,7 +26,7 @@ Provide conclusion based on statement and `claims`
 - Python 3.11 or higher is needed for typed GPT response support.
 - Access to one of the two supported search engines (Bing, Google)
   - Google allows 100 free search queries per day. [How to setup](https://developers.google.com/custom-search/v1/overview)
-  - Bing allows for 1000 fre search queries per month. [How to
+  - Bing allows for 1000 free search queries per month. [How to
     setup](https://learn.microsoft.com/en-us/bing/search-apis/bing-web-search/create-bing-search-service-resource)
 - Access to [Openai API](https://openai.com/blog/openai-api)
 
