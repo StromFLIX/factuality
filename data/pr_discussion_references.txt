@@ -1,0 +1,11 @@
+Given the limit of having up to 16 ai search instances for each subscription [Azure Subscription
+Limits](https://learn.microsoft.com/en-us/azure/search/search-limits-quotas-capacity#subscription-limits), it doesn't work well
+to give every one of our 1000+ customers their own service. Instead, sharing these services makes more sense because
+we can then spread out up to 1000/3000 indices as needed [Index
+Limits](https://learn.microsoft.com/en-us/azure/search/search-limits-quotas-capacity#index-limits). However, for Document
+Intelligence and Language Services, it's better to keep them separate for each customer. This way, we avoid any problems if one
+customer uses too much and slows down the service for others. The limits are 15 transactions per second for Document
+Intelligence [Document Intelligence Service
+Limits](https://learn.microsoft.com/en-us/azure/ai-services/document-intelligence/service-limits?view=doc-intel-4.0.0#model-usage)
+and 1000 transactions per minute for AI Language Service [AI Language Service Rate
+Limits](https://learn.microsoft.com/en-us/azure/ai-services/language-service/concepts/data-limits#rate-limits).

@@ -32,6 +32,7 @@ class Factuality:
             search_results = search_client.search(
                 self.options.search_engine,
                 claim.claim,
+                claim.reference,
                 self.options,
             )
             checked_claim = asyncio.run(

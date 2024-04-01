@@ -19,7 +19,7 @@ class SearchResults(BaseModel):
 
 class SearchClient:
     def search(
-        self, search_engine: Literal["google", "bing"], query, options: Options
+        self, search_engine: Literal["google", "bing"], query: str, reference: str, options: Options
     ) -> list[SearchResults]:
         logger.debug(f"Searching for query", query=query, search_engine=search_engine)
         search_results = []
@@ -52,6 +52,8 @@ class SearchClient:
             ]
         else:
             raise ValueError(f"No loader found for search_engine type: {search_engine}")
+        if reference:
+            search_results.insert(0,{"url": reference, "title": "Reference from statement"})
         search_results_txt = []
         search_results_log = [
             {"domain": urlparse(result["url"])[1], "title": result["title"]}

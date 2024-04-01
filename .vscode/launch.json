@@ -9,7 +9,7 @@
             "console": "integratedTerminal",
             "args": [
                 "--statement",
-                "data/obama_no_citizen.txt",
+                "data/pr_discussion_references.txt",
             ]
         }
     ]
