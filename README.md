@@ -8,7 +8,38 @@
 > Based on [long-form-factuality](https://arxiv.org/abs/2403.18802) ->
 > [github](https://github.com/google-deepmind/long-form-factuality)
 
-[![Demo of factuality in action](https://asciinema.org/a/wKYXfBVO3eTVzZPsv4J49PEh6.svg)](https://asciinema.org/a/wKYXfBVO3eTVzZPsv4J49PEh6)
+<p align="center">
+  <img width="600" src="examples/demo.svg">
+</p>
+
+> Demo of factuality in action
+
+
+## Output
+
+> Given the limit of having up to 16 ai search instances for each subscription [Azure Subscription
+> Limits](https://learn.microsoft.com/en-us/azure/search/search-limits-quotas-capacity#subscription-limits), it doesn't work well
+> to give every one of our 1000+ customers their own service. Instead, sharing these services makes more sense because
+> we can then spread out up to 1000/3000 indices as needed [Index
+> Limits](https://learn.microsoft.com/en-us/azure/search/search-limits-quotas-capacity#index-limits). However, for Document
+> Intelligence and Language Services, it's better to keep them separate for each customer. This way, we avoid any problems if one
+> customer uses too much and slows down the service for others. The limits are 15 transactions per second for Document
+> Intelligence [Document Intelligence Service
+> Limits](https://learn.microsoft.com/en-us/azure/ai-services/document-intelligence/service-limits?view=doc-intel-4.0.0#model-usage)
+> and 1000 transactions per minute for AI Language Service [AI Language Service Rate
+> Limits](https://learn.microsoft.com/en-us/azure/ai-services/language-service/concepts/data-limits#rate-limits).
+
+|                                                             Claim                                                              | Result |                                                         Source Reference                                                          |                                                                                                                                                                     Source Quote                                                                                                                                                                     |
+|--------------------------------------------------------------------------------------------------------------------------------|--------|-----------------------------------------------------------------------------------------------------------------------------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+|Azure Subscription Limits allow up to 16 AI search instances for each subscription.                                             |verified|https://learn.microsoft.com/en-us/azure/search/search-limits-quotas-capacity#subscription-limits                                   |You can create multiple billable search services (Basic and higher), up to the maximum number of services allowed at each tier. For example, you could create up to 16 services at the Basic tier and another 16 services at the S1 tier within the same subscription.                                                                                |
+|Azure allows spreading out up to 1000/3000 indices as needed.                                                                   |verified|https://learn.microsoft.com/en-us/azure/search/search-limits-quotas-capacity#index-limits                                          |Maximum indexes 3 5 or 15 50 200 200 1000 per partition or 3000 per service 10 10                                                                                                                                                                                                                                                                     |
+|For Document Intelligence and Language Services, it's better to keep them separate for each customer to avoid service slowdowns.|verified|https://techcommunity.microsoft.com/t5/ai-azure-ai-services-blog/document-generative-ai-the-power-of-azure-ai-document/ba-p/3875015|Varying Document Formats: Document Types: Diverse document types, such as scanned PDFs, digitized PDFs, images, and office documents, present unique challenges due to their different formats. Extracting information from each type requires specialized techniques and tools to handle the variations in data structure and content representation.|
+|Document Intelligence limits are 15 transactions per second.                                                                    |verified|https://learn.microsoft.com/en-us/azure/ai-services/document-intelligence/service-limits?view=doc-intel-4.0.0#model-usage          |By default the number of transactions per second is limited to 15 transactions per second for a Document Intelligence resource. For the Standard pricing tier, this amount can be increased.                                                                                                                                                          |
+|AI Language Service has a rate limit of 1000 transactions per minute.                                                           |verified|https://learn.microsoft.com/en-us/azure/ai-services/language-service/concepts/data-limits#rate-limits                              |Your rate limit varies with your pricing tier. These limits are the same for both versions of the API. These rate limits don't apply to the Text Analytics for health container, which doesn't have a set rate limit. Tier Requests per second Requests per minute S / Multi-service 1000 1000 S0 / F0 100 300                                        |
+
+
+> 🤖 Conclusion [100/100]: The statement accurately reflects the limitations and recommendations for managing Azure AI services across a large number of customers. It correctly cites the Azure Subscription Limits, allowing up to 16 AI search instances per subscription, and the strategy to spread out up to 1000/3000 indices as needed to accommodate the needs of 1000+ customers. Additionally, the statement correctly identifies the separate handling of Document Intelligence and Language Services to prevent service slowdowns due to high usage by individual customers, supported by the cited limits of 15 transactions per second for Document Intelligence and 1000 transactions per minute for AI Language Service. Each claim is verified and supported by the provided source references and quotes, indicating a high level of truthfulness in the statement.
+
 
 ## First Test
 
