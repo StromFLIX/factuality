@@ -17,16 +17,15 @@ def setup_structlog():
     )
 
 def change_log_level(new_level):
-    if(new_level == "DEBUG"):
-        new_level = DEBUG
-    elif(new_level == "INFO"):
-        new_level = INFO
-    elif(new_level == "WARNING"):
-        new_level = WARNING
-    elif(new_level == "ERROR"):
-        new_level = ERROR
-    elif(new_level == "CRITICAL"):
-        new_level = CRITICAL
+    levels = {
+        "DEBUG": logging.DEBUG,
+        "INFO": logging.INFO,
+        "WARNING": logging.WARNING,
+        "ERROR": logging.ERROR,
+        "CRITICAL": logging.CRITICAL,
+    }
+
+    if new_level in levels:
+        logging.root.setLevel(levels[new_level])
     else:
-        raise ValueError("Invalid log level")
-    logging.root.setLevel(new_level)
+        raise ValueError("Invalid log level: {}".format(new_level))
