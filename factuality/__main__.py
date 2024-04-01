@@ -53,6 +53,7 @@ def main():
     )
     parser.add_argument(
         "--oai-api-key",
+        required=True,
         type=str,
         default=os.getenv("OPENAI_API_KEY"),
         help="OpenAI API key",

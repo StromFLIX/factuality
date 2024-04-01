@@ -2,16 +2,22 @@
 
 <img align="left" width="100" height="100" src="./assets/factuality.png">
 
- Hey there, curious minds 👋 ! It's me, your digital sidekick **Factuality** on a quest to squash misinformation, one fact at a time. Welcome to the coolest tool in the cyber universe where we turn detective mode on and dive deep into the sea of information to bring you the truth, the whole truth, and nothing but the truth!
+Hey there, curious minds 👋 ! It's me, your digital sidekick **Factuality** on a quest to squash misinformation, one fact at a time. Welcome to the coolest tool in the cyber universe where we turn detective mode on and dive deep into the sea of information to bring you the truth, the whole truth, and nothing but the truth!
+
+High lever 
+```bash
+Extract `claims` from the statement provided
+for claim in claims:
+    Search for and fact check the `claim`
+Provide conclusion based on statement and `claims`
+```
 
 ---
 
 > Based on [long-form-factuality](https://arxiv.org/abs/2403.18802) ->
 > [github](https://github.com/google-deepmind/long-form-factuality)
 
-![Demo of factuality](./examples/demo.svg) 
-
-> Demo of factuality in action
+![Demo of factuality](./assets/demo.svg) 
 
 ## Quick start
 
@@ -36,9 +42,20 @@ pip install factuality
 factuality -s "test something is ridiculus" --oai-api-key "<oai-key-here>" --bing-search-v7-subscription-key "<bing-search-key-here>"
 ```
 
-> ⚠️ Defaults are set to `gpt-3.5-turbo` better resultus especially for extraction and conclusion can be achived with `gpt-4-turbo-preview`
+> ⚠️ Defaults are set to `gpt-3.5-turbo` better resultus especially for extraction and conclusion can be achived with
+> `gpt-4-turbo-preview`
 
-## Output
+## Table of Content
+
+- [Quick start](#quick-start)
+- [Example](#example-for-a-markdown-output-of-factuality)
+- [Options](#options)
+- [Library](#library-usage)
+- [Troubleshooting](#troubleshooting)
+- [Contributing](#contributing)
+- [Support](#example-for-a-markdown-output-of-factuality)
+
+## Example for a markdown output of factuality
 
 > Given the limit of having up to 16 ai search instances for each subscription [Azure Subscription
 > Limits](https://learn.microsoft.com/en-us/azure/search/search-limits-quotas-capacity#subscription-limits), it doesn't work well
@@ -63,70 +80,9 @@ factuality -s "test something is ridiculus" --oai-api-key "<oai-key-here>" --bin
 
 > 🤖 Conclusion [100/100]: The statement accurately reflects the limitations and recommendations for managing Azure AI services across a large number of customers. It correctly cites the Azure Subscription Limits, allowing up to 16 AI search instances per subscription, and the strategy to spread out up to 1000/3000 indices as needed to accommodate the needs of 1000+ customers. Additionally, the statement correctly identifies the separate handling of Document Intelligence and Language Services to prevent service slowdowns due to high usage by individual customers, supported by the cited limits of 15 transactions per second for Document Intelligence and 1000 transactions per minute for AI Language Service. Each claim is verified and supported by the provided source references and quotes, indicating a high level of truthfulness in the statement.
 
+> 💡 More examples can be found in the [examples.md](./docs/examples.md)
 
-## First Test
-
-> Biden’s strategy is very simple:
-> 1. Get as many illegals in the country as possible.
-> 2. Legalize them to create a permanent majority – a one-party state.
->
-> That is why they are encouraging so much illegal immigration. Simple, yet effective.
-
-
-|                                                    Claim                                                    |      Result       |                                                            Source Reference                                                            |                                                                                                                                                             Source Quote                                                                                                                                                              |
-|-------------------------------------------------------------------------------------------------------------|-------------------|----------------------------------------------------------------------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-|Biden's strategy is to get as many illegals in the country as possible.                                      |ResultType.REJECTED|https://www.politifact.com/factchecks/2024/feb/06/elon-musk/elon-musk-is-wrong-to-say-joe-biden-is-recruiting/                          |On his first day as president, Joe Biden asked Congress to create a path to citizenship for immigrants in the country illegally. But the current Senate bill, which Biden supports, would not do that.                                                                                                                                 |
-|Biden's strategy includes legalizing illegal immigrants to create a permanent majority and a one-party state.|ResultType.REJECTED|https://www.poynter.org/fact-checking/2024/elon-musk-is-wrong-to-say-joe-biden-is-recruiting-immigrants-to-create-a-democratic-majority/|Musk provided no evidence to show such a Biden strategy exists. And the claim doesn’t add up, because it takes immigrants years to become U.S. citizens, and there’s no guarantee that immigrants who gain citizenship will vote for Democrats.                                                                                        |
-|The Biden administration is encouraging much illegal immigration.                                            |ResultType.VERIFIED|https://www.factcheck.org/2024/02/breaking-down-the-immigration-figures/                                                                |Encounters on the southern border of those trying to enter the U.S. without authorization have gone up significantly under President Joe Biden. Government statistics show that in the initial processing of millions of encounters, 2.5 million people have been released into the U.S. and 2.8 million have been removed or expelled.|
-
-> 🤖 Conclusion [20/100]: The statement that Biden's strategy is to encourage illegal immigration to create a permanent majority and a one-party state is largely unfounded. The claim that Biden's strategy involves getting as many illegal immigrants into the country as possible and then legalizing them to ensure a one-party state is rejected by reputable sources. PolitiFact and Poynter both refute the idea that Biden is actively recruiting illegal immigrants for the purpose of creating a Democratic majority, noting that there is no evidence to support such a strategy and highlighting the lengthy process for immigrants to become U.S. citizens, with no guarantee of their political allegiance. However, it is verified that encounters on the southern border have significantly increased under President Biden, with millions of people either being released into the U.S. or removed. This fact alone does not substantiate the broader claim of a deliberate strategy to alter the political landscape through immigration policy. Therefore, the overall truthfulness of the statement is low, given the lack of evidence for the alleged strategy and the rejection of key claims by credible fact-checking organizations.
-
-## Second Test
-
-> I think you are right having ai search service per customer makes no sense.
-> We should share it as we then have the limit of up to 1000/3000 indices if needed.
-> For the other two (document intelligence and language ) i think they should stay as per customer so we do not have issues when one customer overloads the system for other customers. 
-
-|                                             Claim                                              |      Result       |                                                   Source Reference                                                   |                                                                                              Source Quote                                                                                               |
-|------------------------------------------------------------------------------------------------|-------------------|----------------------------------------------------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-|Having an AI search service per customer is not practical.                                      |ResultType.REJECTED|https://blog.hubspot.com/service/pros-cons-ai-in-service                                                              |a says their CX agents can 'now quickly deal with any dissatisfied customers first.' This has helped them 'dramatically improve the customer experience' and 'significantly reduce the risk of churning.'|
-|Sharing an AI search service allows for up to 1000/3000 indices.                                |ResultType.VERIFIED|https://learn.microsoft.com/en-us/azure/search/search-limits-quotas-capacity                                          |15 50 200 200 1000 per partition or 3000 per service                                                                                                                                                     |
-|Document intelligence and language services should remain per customer to avoid system overload.|ResultType.VERIFIED|https://learn.microsoft.com/en-us/azure/ai-services/document-intelligence/language-support-custom?view=doc-intel-4.0.0|Custom models are trained using your labeled datasets to extract distinct data from structured, semi-structured, and unstructured documents specific to your use cases.                                  |
-
-> 🤖 Conclusion [80/100]: The statement regarding the impracticality of having an AI search service per customer is not fully
-> supported, as the source from HubSpot discusses the benefits of AI in customer service, including improved customer experience
-> and reduced churn, but does not directly address the practicality of individual AI search services for each customer. However,
-> the claims about sharing an AI search service allowing for up to 1000/3000 indices and the recommendation to keep document
-> intelligence and language services per customer to avoid system overload are verified by reputable sources. Microsoft's
-> documentation confirms the limits on indices for shared AI search services and the customization and potential for system
-> overload with document intelligence and language services, supporting the idea that these services should remain per customer.
-> Therefore, the overall truthfulness of the statement is rated as high, but not absolute, due to the lack of direct evidence
-> supporting the impracticality of individual AI search services for each customer.
-
-## Third test
-
-> Obama is actually born in Kenya, the country of his father. This means Obama is not "a natural-born citizen of the U.S."
-> and is therefore not fit for office. 
-
-|                                        Claim                                         |      Result       |                Source Reference                 |                     Source Quote                     |
-|--------------------------------------------------------------------------------------|-------------------|-------------------------------------------------|------------------------------------------------------|
-|Obama is actually born in Kenya, the country of his father.                           |ResultType.REJECTED|https://www.snopes.com/fact-check/birthing-pains/|World News Daily Report's disclaimer page states that:|
-|Obama is not 'a natural-born citizen of the U.S.' and is therefore not fit for office.|ResultType.REJECTED|https://www.snopes.com/fact-check/native-son/    |Status: False.                                        |
-
-> 🤖 Conclusion [0/100]: The statement claiming that Obama was born in Kenya and is therefore not a natural-born citizen of the
-> U.S., making him unfit for office, is entirely false. The source from which this claim originates, World News Daily Report,
-> has a disclaimer stating that it is not a factual source. Additionally, independent fact-checking by Snopes has explicitly
-> rejected both claims, confirming that the statement is baseless and untrue. Therefore, the statement has no truthfulness.
-
-
----
-
-> Obama is actually born in Kenya, the country of his father. This means Obama is not "a natural-born citizen of the U.S."\n> and is therefore not fit for office.
-
-    |                                        Claim                                         |      Result       |                Source Reference                 |                                                                                                                                                                        Source Quote                                                                                                                                                                        |
-    |--------------------------------------------------------------------------------------|-------------------|-------------------------------------------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-    |Obama is actually born in Kenya, the country of his father.                           |ResultType.REJECTED|https://www.snopes.com/fact-check/birthing-pains/|World News Daily Report\'s disclaimer page states that: World News Daily Report is a news and political satire web publication, which may or may not use real names, often in semi-real or mostly fictitious ways. All news articles contained within worldnewsdailyreport.com are fiction, and presumably fake news.                                        |
-    |Obama is not \'a natural-born citizen of the U.S.\' and is therefore not fit for office.|ResultType.VERIFIED|https://www.snopes.com/fact-check/native-son/    |The minimum qualifications for the presidency of the United States specified in Article II of the Constitution are few and seemingly straightforward: In order to be President, a person must be a natural-born citizen of the United States, must be at least thirty-five years old, and must have been a resident of the United States for fourteen years.|
+## Library usage
 
 ```py
 from factuality.runner.factuality import Factuality
@@ -144,3 +100,66 @@ conclusion, _, _ = factuality.check("Neil armstrong land on the moon.")
 
 print(conclusion.description, conclusion.score)
 ```
+
+## Options
+
+| Option | Environment Variable | Required | Description | Default |
+|---|---|---|---|---|
+| `--statement`, `-s` |  | Yes | Statement to fact-check can be text or path to a text file |  |
+| `--output`, `-o` | `OUTPUT_FORMAT` | No | The output format for the fact-check results. Supported formats: console, markdown, json. | `console` |
+| `--output-path` | `OUTPUT_PATH` | No | The output path for the fact-check results. | `.` |
+| `--search-engine` | `SEARCH_ENGINE` | No | The search engine to use for extracting articles. Supported: Bing, Google. | `bing` |
+| `--log-level` | `LOG_LEVEL` | No | Log level for the logger. Supported: DEBUG, INFO, WARNING, ERROR, CRITICAL. | `INFO` |
+| `--oai-api-key` | `OPENAI_API_KEY` | Yes | OpenAI API key |  |
+| `--allowlist` | `ALLOWLIST` | No | List of domains to allow for search results. Format ['domain1.com', 'domain2.com'] | `[]` |
+| `--blocklist` | `BLOCKLIST` | No | List of domains to block for search results. Format ['domain1.com', 'domain2.com'] | `[]` |
+| `--validation-checks-per-claim` | `VALIDATION_CHECKS_PER_CLAIM` | No | How many resources will factuality use to verify a claim. | `1` |
+| `--same-site-allowed` | `SAME_SITE_ALLOWED` | No | If the same site is allowed to be used multiple times for the same claim. | `True` |
+| `--bing-search-v7-subscription-key` | `BING_SEARCH_V7_SUBSCRIPTION_KEY` | No | Bing Search V7 Subscription Key |  |
+| `--bing-search-v7-endpoint` | `BING_SEARCH_V7_ENDPOINT` | No | Bing Search V7 Endpoint URL | `https://api.bing.microsoft.com/` |
+| `--google-search-api-key` | `GOOGLE_SEARCH_API_KEY` | No | Google Search API Key |  |
+| `--google-search-cx` | `GOOGLE_SEARCH_CX` | No | Google Search identifier of the Programmable Search Engine |  |
+| `--openai-model-extract` | `OPENAI_MODEL_EXTRACT` | No | OpenAI Model for Extract | `gpt-3.5-turbo` |
+| `--openai-model-factcheck` | `OPENAI_MODEL_FACTCHECK` | No | OpenAI Model for Fact Check | `gpt-3.5-turbo` |
+| `--openai-model-conclusion` | `OPENAI_MODEL_CONCLUSION` | No | OpenAI Model for Conclusion | `gpt-3.5-turbo` |
+| `--search-extract-article-length` | `SEARCH_EXTRACT_ARTICLE_LENGTH` | No | Search Extract Article Length | `5000` |
+| `--search-extract-article-overlap` | `SEARCH_EXTRACT_ARTICLE_OVERLAP` | No | Search Extract Article Overlap | `500` |
+| `--maximum-search-results` | `MAXIMUM_SEARCH_RESULTS` | No | Maximum Search Results | `5` |
+
+## Troubleshooting
+
+### lxml installation issue
+
+If you encounter an ImportError related to `lxml.html.clean` module when installing or running factuality, this is due to a recent
+change where the `lxml.html.clean` functionality has been separated into its own project, lxml_html_clean. This change requires an
+additional step during installation to ensure all dependencies are correctly met.
+
+To resolve this issue, you need to install the lxml package with the html_clean extra. This can be achieved by running the
+following command:
+
+```
+pip3.11 install "lxml[html_clean]"
+``` 
+
+## Contributing
+
+I welcome contributions to this project! Whether you're fixing a bug, adding a new feature, or improving the documentation, your
+help is greatly appreciated.
+
+### How to Contribute
+
+1. **Explore Issues:** Start by checking out the issues marked with the `[help wanted]` tag. These are areas where your
+   contributions can make a significant impact.
+1. **Fork and Clone:** Once you've identified an issue you're interested in tackling, fork the repository and clone it locally
+   to start making your changes.
+1. **Submit a Pull Request:** After you've made your changes, push them to your fork and submit a pull request to the main
+   repository. Please provide a clear description of the problem and solution, including any relevant issue numbers.
+
+## Support
+
+This project is primarily designed for individual and developmental use, and as such, enterprise-level support and deployment
+assistance are not provided. If you require help or have inquiries regarding the project, I encourage you to reach out through
+my website. For further details and contact information, please visit
+[https://felix.moenckemeyer.com](https://felix.moenckemeyer.com). Your feedback and questions are always welcome, and I'll do my
+best to help you.
+
