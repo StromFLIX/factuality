@@ -4,6 +4,7 @@ import os
 import re
 from dotenv import load_dotenv
 
+from factuality.utils import logging
 from factuality.utils.defaults import Defaults
 from factuality.utils.options import Options
 from factuality.runner.factuality import Factuality
@@ -43,6 +44,12 @@ def main():
         type=str,
         help="The search engine to use for extracting articles. Default is Bing. Supported search engines: Bing, Google.",
         default=os.getenv("SEARCH_ENGINE", Defaults.SEARCH_ENGINE.value),
+    )
+    parser.add_argument(
+        "--log-level",
+        type=str,
+        help="Log level for the logger. Default is INFO. Supported log levels: DEBUG, INFO, WARNING, ERROR, CRITICAL.",
+        default=os.getenv("LOG_LEVEL", Defaults.LOG_LEVEL.value),
     )
     parser.add_argument(
         "--oai-api-key",
@@ -181,7 +188,11 @@ def main():
         google_search_api_key=args.google_search_api_key,
         google_search_cx=args.google_search_cx,
     )
-
+    logging.setup_structlog()
+    if args.log_level:
+        logging.change_log_level(args.log_level)
+    else:
+        logging.change_log_level(logging.INFO)
     factuality = Factuality(options)
     conclusion, checked_claims, statement = factuality.check(args.statement)
     statement_part = re.sub(r'[^\x00-\x7F]+', '', statement[:10].replace(' ', '_'))

@@ -6,9 +6,9 @@ from gpt_json import GPTJSON, GPTMessage, GPTMessageRole
 from pydantic import BaseModel
 from factuality.claim_splitter.claim_splitter import Claim
 from factuality.search.search import SearchResults
-from factuality.utils import logging
+import structlog
 
-logger = logging.get_logger()
+logger = structlog.get_logger(__name__)
 
 
 class ResultType(Enum):
@@ -73,7 +73,7 @@ async def check_claim(
             source.text, search_extract_article_length, search_extract_article_overlap
         ):
             try:
-                logger.debug(f"Checking claim", claim=claim.claim, source=source.url)
+                logger.info(f"Checking claim", claim=claim.claim, source=source.url)
                 gpt_json = GPTJSON[Result](oai_key, model=oai_model)
                 payload = await gpt_json.run(
                     messages=[
@@ -91,7 +91,7 @@ async def check_claim(
                     payload.response.result == ResultType.REJECTED
                     or payload.response.result == ResultType.VERIFIED
                 ) and payload.response.source_quote is not None:
-                    logger.debug(
+                    logger.info(
                         f"Claim checked",
                         claim=claim.claim,
                         source=source.url,
@@ -117,7 +117,7 @@ async def check_claim(
                 pass
     if len(claim_checks) > 0:
         return claim_checks
-    logger.debug(f"Claim checked", claim=claim.claim, result=ResultType.INCONCLUSIVE)
+    logger.info(f"Claim checked", claim=claim.claim, result=ResultType.INCONCLUSIVE)
     return [
         ClaimChecked(
             claim=claim.claim,

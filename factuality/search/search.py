@@ -4,12 +4,12 @@ from factuality.search.bing.bing_search import BingSearchClient
 from newspaper import Article
 from pydantic import BaseModel
 from factuality.search.google.google_search import GoogleSearchClient
-from factuality.utils import logging
 from urllib.parse import urlparse
 
 from factuality.utils.options import Options
+import structlog
 
-logger = logging.get_logger()
+logger = structlog.get_logger(__name__)
 
 
 class SearchResults(BaseModel):
@@ -21,7 +21,7 @@ class SearchClient:
     def search(
         self, search_engine: Literal["google", "bing"], query: str, reference: str, options: Options
     ) -> list[SearchResults]:
-        logger.debug(f"Searching for query", query=query, search_engine=search_engine)
+        logger.info(f"Searching for query", query=query, search_engine=search_engine)
         search_results = []
         if search_engine == "bing":
             search_results_raw = BingSearchClient(
@@ -59,16 +59,16 @@ class SearchClient:
             {"domain": urlparse(result["url"])[1], "title": result["title"]}
             for result in search_results
         ]
-        logger.debug(f"Search results found", search_results=search_results_log)
+        logger.info(f"Search results found", search_results=search_results_log)
         for search_result in search_results:
             url = search_result["url"]
-            logger.debug(f"Downloading article from url", url=url)
+            logger.info(f"Downloading article from url", url=url)
             article = Article(url)
             try:
                 article.download()
                 article.parse()
                 search_results_txt.append(SearchResults(text=article.text, url=url))
-                logger.debug(f"Downloaded article successfully from url", url=url)
+                logger.info(f"Downloaded article successfully from url", url=url)
             except Exception as e:
                 logger.warning(f"Error downloading article {url}: {e}")
         return search_results_txt

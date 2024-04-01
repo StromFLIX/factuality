@@ -1,10 +1,8 @@
-import asyncio
-import os
 from gpt_json import GPTJSON, GPTMessage, GPTMessageRole
-from pydantic import BaseModel, Field
-from factuality.utils import logging
+from pydantic import BaseModel
+import structlog
 
-logger = logging.get_logger()
+logger = structlog.get_logger(__name__)
 
 
 class Claim(BaseModel):
@@ -32,7 +30,7 @@ Respond with the following JSON schema:
 
 
 async def extract_claims(text: str, oai_key: str, oai_model: str) -> list[Claim]:
-    logger.debug(f"Extracting claims from statement", statement=text)
+    logger.info(f"Extracting claims from statement", statement=text)
     gpt_json = GPTJSON[ClaimsArray](oai_key, model=oai_model)
     payload = await gpt_json.run(
         messages=[
@@ -46,7 +44,7 @@ async def extract_claims(text: str, oai_key: str, oai_model: str) -> list[Claim]
             ),
         ]
     )
-    logger.debug(
+    logger.info(
         f"Succesfully extracted claims", statement=text, claims=payload.response.claims
     )
     return payload.response.claims

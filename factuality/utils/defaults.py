@@ -15,3 +15,4 @@ class Defaults(Enum):
     BLOCKLIST = '[]'
     VALIDATION_CHECKS_PER_CLAIM = 1
     SAME_SITE_ALLOWED = True
+    LOG_LEVEL = 'INFO'
