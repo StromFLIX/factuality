@@ -33,7 +33,7 @@ Provide conclusion based on statement and `claims`
 ### Install
 
 ```bash
-pip install factuality
+ python3.11 -m pip install factuality
 ```
 
 ### Run
@@ -138,8 +138,17 @@ To resolve this issue, you need to install the lxml package with the html_clean 
 following command:
 
 ```
-pip3.11 install "lxml[html_clean]"
+python3.11 -m pip install "lxml[html_clean]"
 ``` 
+
+And for `ImportError: cannot import name '_imaging' from 'PIL' (/usr/lib/python3/dist-packages/PIL/__init__.py)`
+
+You can resolve it with:
+
+```
+python3.11 -m pip install -U Pillow
+``` 
+
 
 ## Contributing
 
