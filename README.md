@@ -15,7 +15,7 @@
 
 ## test
 
-<img align="left" width="200" height="200" src="./assets/factuality.png">
+<img align="left" width="100" height="100" src="./assets/factuality.png">
 
  Hey there, curious minds 👋 ! It's me, your digital sidekick **Factuality** on a quest to squash misinformation, one fact at a time. Welcome to the coolest tool in the cyber universe where we turn detective mode on and dive deep into the sea of information to bring you the truth, the whole truth, and nothing but the truth!
 
