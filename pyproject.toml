@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "factuality"
-version = "1.0.13"
+version = "1.0.14"
 description = ""
 authors = ["Felix Mönckemeyer <felix.moenckemeyer@rwth-aachen.de>"]
 license = "MIT"
